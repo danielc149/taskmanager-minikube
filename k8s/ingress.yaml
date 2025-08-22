@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: taskmanager-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: taskmanager.local
+    http:
+      paths:
+      # VictoriaMetrics UI
+      - path: /metrics(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: victoria-metrics
+            port:
+              number: 8428
+      # Backend API routes - debe ir antes que el frontend
+      - path: /api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: backend
+            port:
+              number: 5000
+      # Frontend routes - captura todo lo demás
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
