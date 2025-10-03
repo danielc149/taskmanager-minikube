@@ -14,8 +14,8 @@ TaskManager is a collaborative web application inspired by Google Tasks. It allo
 
 ## 🧰 Tech Stack
 
-- **Frontend:** HTML, CSS, JS  
-- **Backend:** Flask, Sqlite
+- **Frontend:** Nginx + HTML, CSS, JS  
+- **Backend:** Flask, Sqlite with Pvc Mount
 - **Containerization:** Docker  
 - **Orchestration:** Kubernetes via Minikube  
 - **Monitoring:** Victoria Metrics
@@ -32,5 +32,8 @@ TaskManager is a collaborative web application inspired by Google Tasks. It allo
 ### Getting Started
 
 1. Run deploy.ps1
-2. 
+2. Add the line: "127.0.0.1 taskmanager.local" (without quotes) to the hosts file located at: C:\Windows\System32\drivers\etc
+3. Run the command: minikube tunnel (keep it running in a PowerShell window without closing it)
+4. To access the app page: http://taskmanager.local/
+To access VictoriaMetrics: http://taskmanager.local/metrics/vmui
 
